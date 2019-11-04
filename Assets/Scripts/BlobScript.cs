@@ -14,7 +14,7 @@ public class BlobScript : MonoBehaviour
     private Animator anim;
 
     int MoveSpeed = 2;
-    int MaxDist = 5;
+    int MaxDist = 10;
     int MinDist = 0;
 
     public int buttonWidth;
@@ -33,19 +33,19 @@ public class BlobScript : MonoBehaviour
 
     void Update()
     {
-        transform.LookAt(Player);
         
-        if (Vector3.Distance(transform.position, Player.position) >= MinDist & isGrounded())
+        
+        if (Vector3.Distance(transform.position, Player.position) >= MinDist & Vector3.Distance(transform.position, Player.position) <= MaxDist & isGrounded())
         {
-  
+            if(anim.enabled == false)
+                anim.enabled = true;
+            transform.LookAt(Player);
             transform.position += transform.forward * MoveSpeed * Time.deltaTime;
-            anim.Play("Bounce",MoveSpeed);
-         
- 
-
-            
- 
-
+            anim.Play("Bounce", MoveSpeed);
+        }
+        else
+        {
+            anim.enabled = false;
         }
 
         bool isGrounded()
