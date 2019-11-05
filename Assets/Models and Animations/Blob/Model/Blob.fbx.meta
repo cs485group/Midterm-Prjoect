@@ -1,17 +1,8 @@
 fileFormatVersion: 2
-guid: 0a134b4d6439a3a4ebc4f0b8bff7d51a
+guid: 2540c6f56efb8044daf9f87355758b82
 ModelImporter:
   serializedVersion: 26
-  internalIDToNameTable:
-  - first:
-      74: -5704405273741583735
-    second: Sphere.000|EyesAction.002
-  - first:
-      74: 7315613208933789754
-    second: Sphere.000|EyesAction.003
-  - first:
-      74: 1127103114474142792
-    second: Sphere.000|SpikesAction.003
+  internalIDToNameTable: []
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -45,7 +36,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
     importVisibility: 1
@@ -96,7 +87,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
