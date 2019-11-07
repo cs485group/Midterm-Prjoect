@@ -7,6 +7,7 @@ public class Ehealthbar : MonoBehaviour
 {
 
     public AudioSource audioClip;
+	public NotificationsManager Notifications = null;
     public float health;
     public float maxHealth;
     public GameObject healthBarUI;
@@ -34,8 +35,12 @@ public class Ehealthbar : MonoBehaviour
         }
         if (health <= 0)
         {
-            Destroy(gameObject);
 
+            Destroy(gameObject);
+            if (Notifications != null)
+            {
+                Notifications.PostNotification(this, "OnEnemySlain");
+            }
 
         }
     }
