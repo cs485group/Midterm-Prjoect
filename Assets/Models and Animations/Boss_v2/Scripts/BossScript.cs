@@ -22,7 +22,10 @@ public class BossScript : MonoBehaviour
     private int injured;
 
     public float knockbackTime;
+    private float stunKnockback;
+    private float userKnockBack;
     private float knockbackCounter;
+    
 
     public Transform Player;
     public float MinDist;
@@ -43,6 +46,7 @@ public class BossScript : MonoBehaviour
     private int orbC;
 
     public float stunLock;
+    [SerializeField]
     private float stunTimer;
 
     public GameObject orbScript;
@@ -60,16 +64,20 @@ public class BossScript : MonoBehaviour
         healTimer = 0;
         stunTimer = 0;
         healAttempt = 0;
-
+        stunKnockback = 1.5f;
+        userKnockBack = knockbackTime;
+        anim.SetInteger("Dead", currentHp);
     }
 
     // Update is called once per frame
     void Update()
     {
+        anim.SetInteger("Dead", currentHp);
+
         orbC = GameObject.FindGameObjectsWithTag("GOrb").Length;
         wowzer = orbScript.GetComponent<AnimFix>().wow;
         
-        if(wowzer)
+        if(wowzer && healState == 0)
         {
             healState = 1;
         }
@@ -90,8 +98,11 @@ public class BossScript : MonoBehaviour
         {
             healTimer += Time.deltaTime;
         }
-        else if(healState == 2)
+        
+        
+        if(healState == 2)
         {
+            Debug.Log("Stunned" + Time.deltaTime);
             stunTimer += Time.deltaTime;
         }
 
@@ -106,20 +117,23 @@ public class BossScript : MonoBehaviour
             {
                 currentHp += 15;
             }
-            healState = 0;
+            healState = 4;
             healTimer = 0;
             
         }
         else if(orbC == 0 && healState == 1)
         {
+            knockbackTime = stunKnockback;
             anim.SetBool("OHNO",true);
             healState = 2;
             healTimer = 0;
+            
         }
         else if(stunTimer > stunLock)
         {
+            knockbackTime = userKnockBack;
             anim.SetBool("OHNO",false);
-            healState = 0;
+            healState = 4;
             healTimer = 0;
             stunTimer = 0;
             
@@ -128,7 +142,7 @@ public class BossScript : MonoBehaviour
         
         if (Vector3.Distance(transform.position, Player.position) >= MinDist && Vector3.Distance(transform.position, Player.position) <= MaxDist)
         {
-            if(healState < 2)
+            if(healState < 2 || healState == 4)
             {
              playerPos = Player.position - transform.position;
              playerPos.y = 0;
@@ -159,10 +173,23 @@ public class BossScript : MonoBehaviour
     {
         if(injured == 0)
         {
-            anim.SetBool("Harm",true);
+            if(healState == 2)
+            {
+                currentHp -= (damage * 2);
+            }
+            else
+            {
+                anim.SetBool("Harm",true);
+                currentHp -= damage;
+            }
             injured = 1;
-            currentHp -= damage;    
             timer = 0;
         }
+
+        if(currentHp <= 0)
+        {
+            healState = 5;
+        }
+        
     }
 }
