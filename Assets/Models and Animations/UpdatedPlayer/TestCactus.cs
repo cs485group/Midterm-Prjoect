@@ -9,8 +9,9 @@ public class TestCactus : MonoBehaviour
     
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.CompareTag("Player"))
+        if (collision.gameObject.tag == "Player")
         {
+           
            collision.gameObject.GetComponent<PlayerController>().HurtPlayer(damageC);
         }
     }

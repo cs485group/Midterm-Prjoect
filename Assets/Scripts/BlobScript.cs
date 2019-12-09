@@ -16,6 +16,7 @@ public class BlobScript : MonoBehaviour
     int MoveSpeed = 2;
     int MaxDist = 20;
     int MinDist = 0;
+
     /*
     public int buttonWidth;
     public int buttonHeight;
@@ -25,6 +26,7 @@ public class BlobScript : MonoBehaviour
     {
         offset= transform.position - Player.position;
         anim = GetComponent<Animator>();
+        
         //anim.enabled = true;
         /*buttonWidth = 200;
         buttonHeight = 50;
@@ -34,7 +36,6 @@ public class BlobScript : MonoBehaviour
 
     void Update()
     {
-
         //transform.LookAt(Player,Vector3.up);
         //transform.position += transform.forward * MoveSpeed * Time.deltaTime;
          if (Vector3.Distance(transform.position, Player.position) >= MinDist & Vector3.Distance(transform.position, Player.position) <= MaxDist & isGrounded())
@@ -64,15 +65,17 @@ public class BlobScript : MonoBehaviour
     
     }
     
-  /*  private void OnCollisionEnter(Collision collision)
+   private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.CompareTag("Player"))
+        if (collision.gameObject.tag == "Player")
         {
-            Destroy(PlayerObject);
-            isDead = true;
-
+            collision.gameObject.GetComponent<PlayerController>().HurtPlayer(1);
         }
     }
+
+    
+
+    /*
     public void OnGUI()
     {
         if (isDead == true)

@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour {
     public float knockbackTime;
     private float knockbackCounter;
 
+    private int injured;
 
     [SerializeField]
     private int previousWeapon;
@@ -47,6 +48,7 @@ public class PlayerController : MonoBehaviour {
     public GameObject Icon2;
     public GameObject Icon3;
 
+    private int weaponDamage;
 
 	// Use this for initialization
 	void Start () {
@@ -65,10 +67,31 @@ public class PlayerController : MonoBehaviour {
         Icon2.SetActive(false);
         Icon3.SetActive(false);
         Icon1.SetActive(false);
+    
+        weaponDamage = 0;
+
+        injured = 0;
+
+        Cursor.lockState = CursorLockMode.Locked;
 	}
 	
 	// Update is called once per frame (THIS IS A LOOP)
 	void Update () {
+
+
+
+
+        if(injured == 1)
+        {
+            knockbackCounter += Time.deltaTime;
+
+            if(knockbackCounter > knockbackTime)
+            {
+                injured = 0;
+                knockbackCounter = 0;
+            }
+        }
+
         //theRB.velocity = new Vector3(Input.GetAxis("Horizontal") * moveSpeed, theRB.velocity.y, Input.GetAxis("Vertical") * moveSpeed);
         
         /*if(Input.GetButtonDown("Jump"))
@@ -83,6 +106,7 @@ public class PlayerController : MonoBehaviour {
 
         if(Input.GetButtonDown("HotKey1"))
         {
+            weaponDamage = 1;
             anim.SetBool("2h",false);
             hammer.SetActive(false);
             spear.SetActive(false);
@@ -97,6 +121,7 @@ public class PlayerController : MonoBehaviour {
         }
         else if(Input.GetButtonDown("HotKey2"))
         {
+            weaponDamage = 3;
             anim.SetBool("Sword", false);
             sword.SetActive(false);
             spear.SetActive(false);
@@ -110,6 +135,7 @@ public class PlayerController : MonoBehaviour {
         }
         else if(Input.GetButtonDown("HotKey3"))
         {
+            weaponDamage = 2;
             anim.SetBool("Sword", false);
             sword.SetActive(false);
             hammer.SetActive(false);
@@ -156,10 +182,14 @@ public class PlayerController : MonoBehaviour {
 
     public void HurtPlayer(int damage)
     {
-        for(int i = healthPoints; i > (healthPoints - damage); i--)
-            hearts[i].SetActive(false);
+        if(injured == 0)
+        {
+            injured = 1;
+            for(int i = healthPoints; i > (healthPoints - damage); i--)
+                hearts[i].SetActive(false);
 
-        healthPoints -= damage;  
+            healthPoints -= damage;    
+        }
     }
 
     public void animFin()
@@ -181,6 +211,12 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    
+    private void OnTriggerEnter(Collider collision)
+    {
+        if(collision.gameObject.tag == "Enemy")
+        {
+            collision.gameObject.GetComponent<Ehealthbar>().injure(weaponDamage);
+        }
+    }
 
 }

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Sword
   - Hammer
+  - HeartPiece
+  - Enemy
   layers:
   - Default
   - TransparentFX

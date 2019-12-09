@@ -8,25 +8,39 @@ public class Ehealthbar : MonoBehaviour
 
     public AudioSource audioClip;
 	public NotificationsManager Notifications = null;
-    public float health;
+    private float health;
     public float maxHealth;
     public GameObject healthBarUI;
     public Slider slider;
     public float SwordDamage;
     public float HammerDamage;
     public GameObject PlayerObject;
+
+    private int injured;
+    public float knockbackTime;
+    private float knockbackCounter;
     // Start is called before the first frame update
     void Start()
     {
-        maxHealth = 4;
         health = maxHealth;
-        SwordDamage = 0;
-        HammerDamage = 0;
+        injured = 0;
+        knockbackCounter = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(injured == 1)
+        {
+            knockbackCounter += Time.deltaTime;
+
+            if(knockbackCounter > knockbackTime)
+            {
+                injured = 0;
+                knockbackCounter = 0;
+            }
+        }
+
         slider.value = health;
         if (health < maxHealth)
         {
@@ -44,39 +58,13 @@ public class Ehealthbar : MonoBehaviour
 
         }
     }
-    void OnTriggerEnter(Collider other)
+
+    public void injure(int damage)
     {
-        if (other.gameObject.tag == "Sword")
+        if(injured == 0)
         {
-            SwordDamage = 1;
-            health = health = SwordDamage;
-        }
-
-
-
-
-        if (other.gameObject.tag == "Hammer")
-        {
-            HammerDamage = 2;
-            health = health - HammerDamage;
-
-        }
-
-    }
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.collider.CompareTag("Sword"))
-
-        {
-            SwordDamage = 1;
-            health = health -SwordDamage;
-            audioClip.Play();
-        }
-        if (collision.collider.CompareTag("Hammer"))
-
-        {
-            HammerDamage = 2;
-            health = health - HammerDamage;
+            injured = 1;
+            health -= damage;    
         }
     }
 }
