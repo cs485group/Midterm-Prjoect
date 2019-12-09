@@ -217,6 +217,10 @@ public class PlayerController : MonoBehaviour {
         {
             collision.gameObject.GetComponent<Ehealthbar>().injure(weaponDamage);
         }
+        else if(collision.gameObject.tag == "Enemy")
+        {
+            collision.gameObject.GetComponent<BossScript>().injure(weaponDamage);
+        }
     }
 
 }

@@ -8,6 +8,7 @@ TagManager:
   - Hammer
   - HeartPiece
   - Enemy
+  - Boss
   layers:
   - Default
   - TransparentFX
