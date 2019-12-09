@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class CameraAngle : MonoBehaviour
 {
-    public GameObject camera1;
-    public GameObject camera2;    
+    public Camera camera1;
+    public Camera camera2;    
     // Start is called before the first frame update
     void Start()
     {
-        camera2.SetActive(false);
+        camera2.enabled = false;
     }
 
     // Update is called once per frame
@@ -20,8 +20,8 @@ public class CameraAngle : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        camera1.SetActive(false);
-        camera2.SetActive(true);
+        camera1.enabled = false;
+        camera2.enabled = true;
     }
 
 }
