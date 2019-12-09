@@ -50,6 +50,13 @@ public class PlayerController : MonoBehaviour {
 
     private int weaponDamage;
 
+    public GameObject boss;
+    public GameObject hOrb1;
+    public GameObject hOrb2;
+
+    [SerializeField]
+    private int attacking;
+
 	// Use this for initialization
 	void Start () {
         theRB = GetComponent<Rigidbody>();
@@ -69,6 +76,8 @@ public class PlayerController : MonoBehaviour {
         Icon1.SetActive(false);
     
         weaponDamage = 0;
+
+        attacking = 0;
 
         injured = 0;
 
@@ -152,6 +161,7 @@ public class PlayerController : MonoBehaviour {
 
         if(Input.GetButtonDown("Fire1"))
         {
+            attacking = 1;
             attack();
         }
 
@@ -194,6 +204,7 @@ public class PlayerController : MonoBehaviour {
 
     public void animFin()
     {
+        attacking = 0;
         anim.SetBool("Swing", false);
         anim.SetBool("Hammer_Swing", false);
         anim.SetBool("Swing", false);
@@ -213,13 +224,24 @@ public class PlayerController : MonoBehaviour {
 
     private void OnTriggerEnter(Collider collision)
     {
-        if(collision.gameObject.tag == "Enemy")
-        {
-            collision.gameObject.GetComponent<Ehealthbar>().injure(weaponDamage);
-        }
-        else if(collision.gameObject.tag == "Enemy")
-        {
-            collision.gameObject.GetComponent<BossScript>().injure(weaponDamage);
+        if(attacking == 1)
+        {       
+            if(collision.gameObject.tag == "Enemy")
+            {
+                collision.gameObject.GetComponent<Ehealthbar>().injure(weaponDamage);
+            }
+            if(collision.gameObject.tag == "Boss")
+            {
+                boss.GetComponent<BossScript>().injure(weaponDamage);
+            }
+            if(collision.gameObject.tag == "Orb")
+            {
+                hOrb1.GetComponent<HeadMovement>().injure(weaponDamage);
+            }
+            if(collision.gameObject.tag == "Orb2")
+            {
+                hOrb2.GetComponent<HeadMovement>().injure(weaponDamage);
+            }
         }
     }
 

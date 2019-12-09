@@ -9,6 +9,9 @@ TagManager:
   - HeartPiece
   - Enemy
   - Boss
+  - Orb
+  - Orb2
+  - GOrb
   layers:
   - Default
   - TransparentFX
