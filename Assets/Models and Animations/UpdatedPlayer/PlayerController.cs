@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour {
             HurtPlayer(1);
         }
 
-        if(Input.GetButtonDown("Hotkey1"))
+        if(Input.GetButtonDown("HotKey1"))
         {
             anim.SetBool("2h",false);
             hammer.SetActive(false);
@@ -95,7 +95,7 @@ public class PlayerController : MonoBehaviour {
             Icon1.SetActive(true);
             
         }
-        else if(Input.GetButtonDown("Hotkey2"))
+        else if(Input.GetButtonDown("HotKey2"))
         {
             anim.SetBool("Sword", false);
             sword.SetActive(false);
@@ -108,7 +108,7 @@ public class PlayerController : MonoBehaviour {
             Icon3.SetActive(false);
             Icon2.SetActive(true);
         }
-        else if(Input.GetButtonDown("Hotkey3"))
+        else if(Input.GetButtonDown("HotKey3"))
         {
             anim.SetBool("Sword", false);
             sword.SetActive(false);
