@@ -4,65 +4,67 @@ using UnityEngine;
 
 public class BlobScript : MonoBehaviour
 {
-    private bool isDead = false;
-    private bool grounded = true;
-    private Rigidbody rbody;
+    //private bool isDead = false;
+    //private bool grounded = true;
     public LayerMask ground;
     public Transform Player;
+    private Vector3 offset;
     public Transform Blob;
-    public GameObject PlayerObject;
+    //public GameObject PlayerObject;
     private Animator anim;
 
     int MoveSpeed = 2;
-    int MaxDist = 10;
+    int MaxDist = 20;
     int MinDist = 0;
-
+    /*
     public int buttonWidth;
     public int buttonHeight;
     private int origin_x;
-    private int origin_y;
+    private int origin_y;*/
     void Start()
     {
-        rbody = GetComponent<Rigidbody>();
+        offset= transform.position - Player.position;
         anim = GetComponent<Animator>();
-        buttonWidth = 200;
+        //anim.enabled = true;
+        /*buttonWidth = 200;
         buttonHeight = 50;
         origin_x = Screen.width / 2 - buttonWidth / 2;
-        origin_y = Screen.height / 2 - buttonHeight * 2;
+        origin_y = Screen.height / 2 - buttonHeight * 2;*/
     }
 
     void Update()
     {
-        
-        
-        if (Vector3.Distance(transform.position, Player.position) >= MinDist & Vector3.Distance(transform.position, Player.position) <= MaxDist & isGrounded())
-        {
-            if(anim.enabled == false)
-                anim.enabled = true;
-            transform.LookAt(Player);
-            transform.position += transform.forward * MoveSpeed * Time.deltaTime;
-            anim.Play("Bounce", MoveSpeed);
-        }
-        else
-        {
-            anim.enabled = false;
-        }
 
-        bool isGrounded()
-        {
-            if (Physics.CheckSphere(Blob.position, .8f, ground, QueryTriggerInteraction.Ignore))
-            {
-   
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+        //transform.LookAt(Player,Vector3.up);
+        //transform.position += transform.forward * MoveSpeed * Time.deltaTime;
+         if (Vector3.Distance(transform.position, Player.position) >= MinDist & Vector3.Distance(transform.position, Player.position) <= MaxDist & isGrounded())
+         {
 
+             transform.LookAt(Player);
+             transform.position += transform.forward * MoveSpeed * Time.deltaTime;
+             anim.Play("Bounce", MoveSpeed);
+         }
+         else
+         {
+             anim.Play("idle");
+         }
+
+         bool isGrounded()
+         {
+             if (Physics.CheckSphere(Blob.position, .8f, ground, QueryTriggerInteraction.Ignore))
+             {
+
+                 return true;
+             }
+             else
+             {
+                 return false;
+             }
+         }
+    
     }
-    private void OnCollisionEnter(Collision collision)
+    
+  /*  private void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.CompareTag("Player"))
         {
@@ -91,5 +93,5 @@ public class BlobScript : MonoBehaviour
 
         }
 
-    }
+    }*/
 }
