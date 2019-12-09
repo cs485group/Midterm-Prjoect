@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ChestListener : MonoBehaviour
 {
@@ -26,6 +27,8 @@ public class ChestListener : MonoBehaviour
         obj.transform.Translate(new Vector3(1,0,0.5f));
         obj.transform.Rotate(0,-20,0, Space.Self);
         audio.Play();
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
 }

@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Desert.unity
     guid: 9e2166379d716094eb643d28d7933257
+  - enabled: 1
+    path: Assets/Scenes/Dungeon.unity
+    guid: be99e72cb2a7c204d9aa41f8a33189d7
   m_configObjects: {}
