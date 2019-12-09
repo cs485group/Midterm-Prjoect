@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour
 {
-    private void OnTriggerEnter(Collision collision)
-    {
-        Debug.Log("HAH");
+    public GameObject player;
 
+    private void OnTriggerEnter(Collider collision)
+    {
         if (collision.gameObject.tag == "Player")
         {
-            collision.gameObject.GetComponent<PlayerController>().HurtPlayer(2);
+             Debug.Log("HAH");
+            player.GetComponent<PlayerController>().HurtPlayer(2);
         }
     }
 }

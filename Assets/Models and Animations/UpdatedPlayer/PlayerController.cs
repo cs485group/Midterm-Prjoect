@@ -198,7 +198,10 @@ public class PlayerController : MonoBehaviour {
             for(int i = healthPoints; i > (healthPoints - damage); i--)
                 hearts[i].SetActive(false);
 
-            healthPoints -= damage;    
+            healthPoints -= damage;   
+
+            if(healthPoints < 0)
+                Application.LoadLevel(Application.loadedLevel); 
         }
     }
 

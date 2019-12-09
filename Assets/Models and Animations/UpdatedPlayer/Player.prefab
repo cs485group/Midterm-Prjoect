@@ -871,6 +871,10 @@ MonoBehaviour:
   Icon1: {fileID: 0}
   Icon2: {fileID: 0}
   Icon3: {fileID: 0}
+  boss: {fileID: 0}
+  hOrb1: {fileID: 0}
+  hOrb2: {fileID: 0}
+  attacking: 0
 --- !u!1 &385944548920228874
 GameObject:
   m_ObjectHideFlags: 0
@@ -6933,7 +6937,7 @@ GameObject:
   - component: {fileID: 5653884223438840797}
   m_Layer: 0
   m_Name: Chest
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
